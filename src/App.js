@@ -1,23 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Navbar from "./components/Navbar";
+import CarDetailsForm from "./components/CarDetailsForm";
+import CarDescription from "./components/CarDescription";
+import Home from "./pages/Home";
+import BuyCar from "./pages/BuyCar";
+import SellCar from "./pages/SellCar";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Cars from "./data";
+import { Routes, Route } from "react-router-dom";
+import Footer from "./components/Footer";
+import { useState } from "react";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      <Routes>
+        <Route path="/" element={<Home Cars={Cars} />} />
+        <Route path="/buycar" element={<BuyCar Cars={Cars} />} />
+        <Route path="/sellcar" element={<SellCar />} />
+        <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/contactus" element={<ContactUs/>} />
+        <Route
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route
+          path="/signup"
+          element={<Signup setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route path="/sellcar/form" element={<CarDetailsForm />} />
+        <Route path="/cardescription/:id" element={<CarDescription />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
